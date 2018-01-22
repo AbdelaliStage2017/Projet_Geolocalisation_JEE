@@ -1,4 +1,4 @@
-package com.Models;
+package com.Beans;
 import java.util.Date;
 
 public class Chercheur {
