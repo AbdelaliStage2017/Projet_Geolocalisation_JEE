@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -5,7 +7,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>R√©seau doctorants</title>
+        <title>RÈseau doctorants</title>
     	<meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 
@@ -13,14 +15,20 @@ Flex Template
 http://www.templatemo.com/tm-406-flex
 -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-        
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/font-awesome.css">
-        <link rel="stylesheet" href="css/animate.css">
-        <link rel="stylesheet" href="css/templatemo_misc.css">
-        <link rel="stylesheet" href="css/templatemo_style.css">
+           
+           
+           	 <link href='${pageContext.request.contextPath}/Index/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+           	  <link href='${pageContext.request.contextPath}/Index/css/font-awesome.css' rel='stylesheet' type='text/css'>
+             <link href='${pageContext.request.contextPath}/Index/css/animate.css' rel='stylesheet' type='text/css'>
+             <link href='${pageContext.request.contextPath}/Index/css/templatemo_misc.css' rel='stylesheet' type='text/css'>
+             <link href='${pageContext.request.contextPath}/Index/css/templatemo_style.css' rel='stylesheet' type='text/css'>
+             
+           	 
+              
+                      <script src='Index/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js'></script>
+              
+       
 
-        <script src="js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -46,7 +54,7 @@ http://www.templatemo.com/tm-406-flex
                                         <li class="active"><a href="#">Accueil</a></li>
                                         
                                         <li><a href="#connexion">Espace doctorant</a></li>
-                                        <li><a href="#inscription">Inscription</a></li>                                 
+                                        <li><a href="ajout">Inscription</a></li>                                 
                                     </ul>                                    
                                 </div> <!-- /.main-menu -->
                             </div> <!-- /.row -->
@@ -60,25 +68,25 @@ http://www.templatemo.com/tm-406-flex
                         <ul class="slides">
                             <li>
                                 <div class="overlay"></div>
-                                <img src="images/slide1.jpg" alt="">
+                                <img src="${pageContext.request.contextPath}/Index/images/slide1.jpg" alt="">
                                 <div class="slider-caption visible-md visible-lg">
-                                    <h2>Publier votre th√©se</h2>
+                                    <h2>Publier votre thÈse</h2>
                                     <p>rendre votre recherche visible</p>
                                     <a href="#" class="slider-btn">Cliquer ici</a>
                                 </div>
                             </li>
                             <li>
                                 <div class="overlay"></div>
-                                <img src="images/slide2.jpg" alt="">
+                                <img src="${pageContext.request.contextPath}/Index/images/slide2.jpg" alt="">
                                 <div class="slider-caption visible-md visible-lg">
-                                    <h2>Rejoindre le r√©seau des doctorants</h2>
+                                    <h2>Rejoindre le rÈseau des doctorants</h2>
                                     <p></p>
                                     <a href="#" class="slider-btn">Cliquer ici</a>
                                 </div>
                             </li>
                             <li>
                                 <div class="overlay"></div>
-                                <img src="images/slide3.jpg" alt="">
+                                <img src="${pageContext.request.contextPath}/Index/images/slide3.jpg" alt="">
                                 <div class="slider-caption visible-md visible-lg">
                                     <h2>Geolocalisation</h2>
                                     <p>Effectuer des recherches sur les th√©ses, les doctorants, ou les th√©mes</p>
@@ -99,14 +107,14 @@ http://www.templatemo.com/tm-406-flex
                 <div class="row">
                     <div class="heading-section col-md-12 text-center">
                         <h2 id="search">Geolocalisation</h2>
-                        <p>localiser les doctorants, les th√©ses ou les th√©mes</p>
+                        <p>localiser les doctorants, les thÈses ou les thÈmes</p>
                     </div> <!-- /.heading-section -->
                 </div> <!-- /.row -->
 				<div class="row">
  
   <div class="col-lg-6">
     <div class="input-group" id="fr">
-      <input type="text" class="form-control"  id="searchInput" placeholder="th√©me,doctorant,th√©se...">
+      <input type="text" class="form-control"  id="searchInput" placeholder="thÈme,doctorant,thÈse...">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button" id="searchBtn">Rechercher</button>
       </span>
@@ -140,15 +148,14 @@ http://www.templatemo.com/tm-406-flex
             </div> <!-- /.container -->
         </div> <!-- /#footer -->
         
-        <script src="js/vendor/jquery-1.11.0.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+        <script src="Index/js/vendor/jquery-1.11.0.min.js"></script>
+        <script src="Index/js/bootstrap.js"></script>
+        <script src="Index/js/plugins.js"></script>
+        <script src="Index/js/main.js"></script>
 
         <!-- Google Map -->
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-        <script src="js/vendor/jquery.gmap3.min.js"></script>
+        <script src="Index/js/vendor/jquery.gmap3.min.js"></script>
         
         <!-- Google Map Init-->
         <script type="text/javascript">
@@ -172,6 +179,7 @@ http://www.templatemo.com/tm-406-flex
                 $('body').bind('touchstart', function() {});
             });
 			$( "#searchBtn" ).click(function() {
+				alert();
 				var Search= $("#searchInput").val();
 				
 				
