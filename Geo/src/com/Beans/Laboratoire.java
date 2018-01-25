@@ -13,9 +13,16 @@ public class Laboratoire {
 	private String Description;
 	private Set<Chercheur> listChercheurs = new HashSet<Chercheur>();
 	private Adresse adresse;
+	private int id_departement;
 
 	public Adresse getAdresse() {
 		return adresse;
+	}
+	public int getId_departement() {
+		return id_departement;
+	}
+	public void setId_departement(int id_departement) {
+		this.id_departement = id_departement;
 	}
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;

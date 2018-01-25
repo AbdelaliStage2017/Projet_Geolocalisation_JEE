@@ -8,7 +8,28 @@ public class Chercheur {
 	private Date Date_naissance;
 	private String Telephone;
 	private String Email;
-	private String Etat;
+	private String password;
+	private String type;
+	private int IdLabo;
+	
+	public int getIdLabo() {
+		return IdLabo;
+	}
+	public void setIdLabo(int idLabo) {
+		IdLabo = idLabo;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getNom() {
 		return Nom;
 	}
@@ -39,12 +60,7 @@ public class Chercheur {
 	public void setEmail(String email) {
 		Email = email;
 	}
-	public String getEtat() {
-		return Etat;
-	}
-	public void setEtat(String etat) {
-		Etat = etat;
-	}
+	
 	public int getIdChercheur() {
 		return idChercheur;
 	}

@@ -12,7 +12,14 @@ public class Departement {
 	private String Description;
 	private Set<Laboratoire> listLaboratoires = new HashSet<Laboratoire>();
 	private Adresse adresse;
+	private int id_universite;
 
+	public int getId_universite() {
+		return id_universite;
+	}
+	public void setId_universite(int id_universite) {
+		this.id_universite = id_universite;
+	}
 	public Adresse getAdresse() {
 		return adresse;
 	}

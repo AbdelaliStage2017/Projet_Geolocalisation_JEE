@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+        <%@page import="java.sql.ResultSet"%>
+    
 <!DOCTYPE html>
 <html lang="en" >
 
 <head>
   <meta charset="UTF-8">
-  <title>${pageContext.request.contextPath}</title>
+  <title>Inscription - Geolocalisation </title>
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
@@ -51,23 +53,23 @@
       
       <div class="tab-content">
         <div id="signup">   
-          <h1>Rejoindre le réseau des doctorants</h1>
+          <h1>Rejoindre le r�seau des doctorants</h1>
           
-          <form action="${pageContext.request.contextPath}/Add" method="post">
+          <form action="${pageContext.request.contextPath}/ajout" method="post">
           
           <div class="top-row">
             <div class="field-wrap">
               <label>
                 Nom<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="off" />
+              <input type="text"  name="name" required autocomplete="off" />
             </div>
         
             <div class="field-wrap">
               <label>
                 Prenom<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="off"/>
+              <input type="text" name="prenom" required autocomplete="off"/>
             </div>
           </div>
 
@@ -75,14 +77,14 @@
             <label>
               Email Adresse<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input type="email" name="email" required autocomplete="off"/>
           </div>
           
           <div class="field-wrap">
             <label>
               mot de passe<span class="req">*</span>
             </label>
-            <input type="password"required autocomplete="off" id="pass"/>
+            <input type="password" name="password" required autocomplete="off" id="pass"/>
           </div>
 		  
 
@@ -97,38 +99,32 @@
 			
 			<div class="field-wrap">
 			
-             <select name="universite" id="universite" required >
-						<option value="um5s">Université UM5S</option>
-						<option value="uh2">Université HASSAN II</option>
-						<option value="uca">Université CADI AYAD</option>
-						<option value="uit">Université Ibn Tofil</option>
+             <select name="universite" id="universitee" required >
+							<% ResultSet rs=(ResultSet) request.getAttribute("list");
+					while(rs.next()) {
+					%>
+						<option value="<%=rs.getInt("id_universite")%>"><%=rs.getString("nom") %></option>
+						<%} %>
 			 </select>  
 			 
 			</div>
-			<p class="forgot"><a href="#">Ajouter une université ?</a></p>
+			<p class="forgot"><a href="ajoutUniversite">Ajouter une universit� ?</a></p>
 			<div class="field-wrap">
-             <select name="departement" required>
-						<option value="um5s">Departement Informatique</option>
-						<option value="uh2">Departement Physique</option>
-						<option value="uca">Departement Biologie</option>
-						<option value="uit">Departement Science humaines</option>
-						<option value="other">Departement Histoire</option>
+             <select name="departement" id="departement" required>
+					
 			 </select>  
 			 
 			</div>
-						 <p class="forgot"><a href="#">Ajouter un Departement ?</a></p>
+						 <p class="forgot"><a href="ajoutDepartement">Ajouter un Departement ?</a></p>
 
 			<div class="field-wrap">
-             <select name="labo" required>
-						<option value="um5s">Laboratoire Informatique</option>
-						<option value="uh2">Laboratoire Physique</option>
-						<option value="uca">Laboratoire Biologie</option>
-						<option value="uit">Laboratoire Science humaines</option>
+             <select name="labo" id="labo" required>
+						
 				
 			 </select>  
 			 
 			</div>
-			 <p class="forgot"><a href="#">Ajouter un Laboratoire ?</a></p>
+			 <p class="forgot"><a href="ajoutLaboratoire">Ajouter un Laboratoire ?</a></p>
 
 			
 			
@@ -162,7 +158,7 @@
             <input type="password"required autocomplete="off" />
           </div>
           
-          <p class="forgot"><a href="#">mot de passe oublié?</a></p>
+          <p class="forgot"><a href="#">mot de passe oubli� ?</a></p>
           
           <button class="button button-block"/>se connecter</button>
           
@@ -186,10 +182,79 @@
 
 			  			<script type="text/javascript"><%@include file="/Add/Add/js/index.js"%></script>
 			
+			
 	    
 	  
 	       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAn4TQco11jEBtGI2eYNDWo42zbH01mi4U&callback=initMap"></script>
 
+		<script>
+		$("#universitee").change(function(){
+			
+			var id_universite= $("#universitee").val();
+			$.ajax({
+				type: 'POST',
+				data : {id_universite: id_universite},
+				url : 'AjaxInsert',
+				success : function(result){
+					$('#departement').html("");
+					$('#labo').html("");
+					$('#departement').append(result);
+					$('#departement').change();
+				}
+				
+			});
+		});
+			
+			$("#departement").change(function(){
+				
+				var id_departement= $("#departement").val();
+				if(id_departement != null) {
+				$.ajax({
+					type: 'POST',
+					data : {id_departement: id_departement},
+					url : 'AjaxInsert2',
+					success : function(result){
+						$('#labo').html("");
+						$('#labo').append(result);
+					}
+					
+				});
+				}
+			
+			
+			 
+		});
+		
+		$( document ).ready(function() {
+			
+			var id =$("#universitee").val();
+			$.ajax({
+				type: 'POST',
+				data : {id_universite: id},
+				url : 'AjaxInsert',
+				success : function(result){
+					$('#departement').append(result);
+				}
+				
+			});
+			
+			id =1;
+			$.ajax({
+				type: 'POST',
+				data : {id_departement: id},
+				url : 'AjaxInsert2',
+				success : function(result){
+					$('#labo').html("");
+					$('#labo').append(result);
+				}
+				
+			});
+			
+		});
+
+		
+		
+		</script>
 
 
 

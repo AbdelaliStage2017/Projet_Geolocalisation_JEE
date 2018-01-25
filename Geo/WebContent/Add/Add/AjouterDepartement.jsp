@@ -1,3 +1,6 @@
+<%@page import="java.sql.ResultSet"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en" >
 
@@ -8,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
   
-      <link rel="stylesheet" href="css/style.css">
+      <style><%@include file="/Add/Add/css/style.css"%></style>
+      
 	  <style>
 	   #map {
         height: 400px;
@@ -50,14 +54,14 @@
         <div id="universite">   
           <h1>Ajouter un departement</h1>
           
-          <form action="/" method="post">
+          <form action="${pageContext.request.contextPath}/ajoutDepartement" method="post">
           
           
             <div class="field-wrap">
               <label>
                 Nom Departement<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="off" />
+              <input type="text" name="name" required autocomplete="off" />
             </div>
 
          
@@ -66,7 +70,7 @@
             <label>
               Description
             </label>
-             <textarea rows="4" cols="50">
+             <textarea rows="4" cols="50" name="description">
                      
              </textarea> 
           </div>
@@ -83,6 +87,17 @@
               </label>
 			  <input type="text"  name="specialisation" value="" />
             </div>
+            	<div class="field-wrap">
+			
+             <select name="universite" id="universite" name="universite" required >
+					<% ResultSet rs=(ResultSet) request.getAttribute("list");
+					while(rs.next()) {
+					%>
+						<option value="<%=rs.getInt("id_universite")%>"><%=rs.getString("nom") %></option>
+						<%} %>
+			 </select>  
+			 
+			</div>
              
 			 		  <div >
 						<p> Aidez-nous à vous localisez </p>
@@ -94,7 +109,7 @@
 				 <input type="hidden" name="longitude" id="lng" />
 		  <input type="hidden" name="lantitude" id="lat" />
 		 
-		    <button type="submit" class="button button-block" id="sub"/>Ajouter </button>
+		    <button type="submit" class="button button-block" id="sub">Ajouter </button>
 
           </form>
           
@@ -110,13 +125,9 @@
 
 
 
+<script type="text/javascript"><%@include file="/Add/Add/js/jquery-1.11.0.min.js"%></script>
 
-	<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
-	
-
-  
-
-    <script  src="js/index.js"></script>
+<script type="text/javascript"><%@include file="/Add/Add/js/index.js"%></script>
 		      <script>
 	  
       var map;
@@ -149,13 +160,25 @@ function placeMarker(location) {
     marker = new google.maps.Marker({
         position: location, 
         map: map
-    }); }
-			$("#lng").val(marker.position.lng());
-			$("#lat").val(marker.position.lat());
+    }); 
+    $("#lng").val(marker.position.lng());
+	$("#lat").val(marker.position.lat());}
+			
 	marker.addListener("dblclick", function() {
     marker.setMap(null);
+    $("#lng").val("");
+	$("#lat").val("");
 });
 }
+
+$("form").submit(function(e){
+	if($("#lat").val()=="") {
+    e.preventDefault();
+    alert("Precisez la localisation");
+	}
+    
+});
+    
 
 
 

@@ -1,14 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en" >
 
 <head>
   <meta charset="UTF-8">
-  <title>Sign-Up/Login Form</title>
+  <title>Ajouter Université</title>
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
   
-      <link rel="stylesheet" href="css/style.css">
+      <style><%@include file="/Add/Add/css/style.css"%></style>
 	  <style>
 	   #map {
         height: 400px;
@@ -42,22 +44,22 @@
   <div class="form" >
       
       <ul class="tab-group">
-        <li class="tab active" ><a href="#universite" style="width:100%">Laboratoire</a></li>
+        <li class="tab active" ><a href="#universite" style="width:100%">Université</a></li>
 		
       </ul>
       
       <div class="tab-contentt">
         <div id="universite">   
-          <h1>Ajouter un Laboratoire</h1>
+          <h1>Ajouter une université</h1>
           
-          <form action="/" method="post">
+          <form action="${pageContext.request.contextPath}/ajoutUniversite" method="post" >
           
           
             <div class="field-wrap">
               <label>
-                Nom Laboratoire<span class="req">*</span>
+                Nom Université<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="off" />
+              <input type="text" name="name" required autocomplete="off" />
             </div>
 
          
@@ -66,7 +68,7 @@
             <label>
               Description
             </label>
-             <textarea rows="4" cols="50">
+             <textarea rows="4" cols="50" name="description">
                      
              </textarea> 
           </div>
@@ -76,23 +78,14 @@
               </label>
 			  <input type="text" pattern="\d{1,2}/\d{1,2}/\d{4}" class="datepicker" name="date" value="" />
             </div>
-			
-			<div class="field-wrap">
-              <label>
-                Domaine<span class="req"></span>
-              </label>
-			  <input type="text"  name="specialisation" value="" />
-            </div>
-			
 			<div >
-						<p> Aidez-nous Ã  vous localisez </p>
+						<p> Aidez-nous à vous localisez </p>
 		   
 		   <div id="map"></div>
 		     </div>
+			 	 <input type="hidden" name="longitude" id="lng" required />
+		  <input type="hidden" name="lantitude" id="lat"  required />
          
-				 <input type="hidden" name="longitude" id="lng" />
-		  <input type="hidden" name="lantitude" id="lat" />
-		  
 		    <button type="submit" class="button button-block" id="sub"/>Ajouter </button>
 
           </form>
@@ -110,12 +103,12 @@
 
 
 
-	<script>window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')</script>
+                        <script type="text/javascript"><%@include file="/Add/Add/js/jquery-1.11.0.min.js"%></script>
 
-  
-
-    <script  src="js/index.js"></script>
-	
+			  			<script type="text/javascript"><%@include file="/Add/Add/js/index.js"%></script>
+			
+	    
+	  
 	      <script>
 	  
       var map;
@@ -148,18 +141,29 @@ function placeMarker(location) {
     marker = new google.maps.Marker({
         position: location, 
         map: map
-    }); }
-			$("#lng").val(marker.position.lng());
-			$("#lat").val(marker.position.lat());
+    }); 
+    $("#lng").val(marker.position.lng());
+	$("#lat").val(marker.position.lat());
+		  }
+			
 	marker.addListener("dblclick", function() {
     marker.setMap(null);
+    $("#lng").val("");
+	$("#lat").val("");
+    
 });
 }
 
 
 
-
-
+$("form").submit(function(e){
+	if($("#lat").val()=="") {
+    e.preventDefault();
+    alert("Precisez la localisation");
+	}
+    
+});
+    
 
 		
 
@@ -168,7 +172,8 @@ function placeMarker(location) {
 	  
 	     
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAn4TQco11jEBtGI2eYNDWo42zbH01mi4U&callback=initMap"></script>  
-   
+	
+	     
 	  
 
 

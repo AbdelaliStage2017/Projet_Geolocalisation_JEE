@@ -7,10 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.Beans.Chercheur;
+import com.Services.Ajout;
+import com.Services.Recherche;
+
 /**
  * Servlet implementation class AddUser
  */
-@WebServlet("/AddUser")
+@WebServlet(name="AddUser", urlPatterns="/ajout")
 public class AddUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,6 +32,8 @@ public class AddUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setAttribute("list", Recherche.listUniversite());
+		request.getRequestDispatcher("Add/Add/index.jsp").forward(request,response);
 	}
 
 	/**
@@ -35,7 +41,13 @@ public class AddUser extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		Ajout.AjouterUser(request);
+		
+		//request.getRequestDispatcher("/ajout").forward(request, response);
+
+		
+		
 	}
 
 }
