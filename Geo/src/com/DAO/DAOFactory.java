@@ -31,5 +31,15 @@ public class DAOFactory {
 		    return new LaboratoireDAO(conn);
 
 		  }
+	  public ThemeDAO	getThemeDAO(){
+
+		    return new ThemeDAO(conn);
+
+		  }
+	  public TheseDAO getTheseDAO(){
+
+		    return new TheseDAO(conn);
+
+		  }
 	 
 }

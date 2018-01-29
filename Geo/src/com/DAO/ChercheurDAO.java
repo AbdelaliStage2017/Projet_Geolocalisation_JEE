@@ -1,6 +1,8 @@
 package com.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.Beans.Chercheur;
@@ -41,6 +43,29 @@ public class ChercheurDAO extends DAO<Chercheur> {
 	@Override
 	public Chercheur find(int id) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	public ResultSet  find2(String nom) {
+		// TODO Auto-generated method stub
+		ResultSet rs;
+		try {
+		
+			PreparedStatement preparedStatement = connect.prepareStatement("select * from laboratoire,chercheur,lieu "
+					+ "where chercheur.id_labo=laboratoire.id_labo and laboratoir.id_adresse=lieu.id_adresse"
+					+ "and  ( concat(chercheur.nom, ' ', chercheur.prenom) like concat('%', replace(?,' ' ,'%'), '%'))  ");
+
+			preparedStatement.setString( 1, nom );
+			
+			rs=preparedStatement.executeQuery();
+			
+			return rs;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
